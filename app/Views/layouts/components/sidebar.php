@@ -12,7 +12,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="/dashboarduser">
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
     </li>
@@ -34,7 +34,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pengguna</h6>
-                <a class="collapse-item" href="/masyarakat">Masyarakat</a>
+                <a class="collapse-item" href="/user">Masyarakat</a>
                 <a class="collapse-item" href="/petugas">Petugas</a>
             </div>
         </div>

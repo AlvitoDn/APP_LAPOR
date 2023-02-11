@@ -36,25 +36,26 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index',['filter' => 'auth']);
-$routes->get('/dashboarduser', 'Home::user',['filter' => 'auth']);
-
-// Routes for Masyarakat
-$routes->get('/masyarakat','MasyarakatController::index');
+$routes->get('/dashboarduser', 'Home::admin',['filter' => 'auth']);
 
 // Routes for Petugas
 $routes->get('/petugas','PetugasController::index',['filter' => 'auth']);
+$routes->get('/user','PetugasController::M',['filter' => 'auth']);
 $routes->add('/spetugas','PetugasController::save');
 
 // Routes for laporan
 $routes->get("/laporan","PengaduanController::index",['filter' => 'auth']);
-$routes->add("/spengaduan","PengaduanController::pengaduan",['filter' => 'auth']);
+$routes->add("/balas","PengaduanController::balas",['filter' => 'auth']);
+$routes->get('/laporan/delete/(:segment)','PengaduanController::delete/$1');
+$routes->add("/spengaduan","PengaduanController::savepengaduan",['filter' => 'auth']);
 
 // Routes for Login & Register
 $routes->get('/login','LoginController::index');
-$routes->add('/plogin','LoginController::login');
-$routes->get('/logout','LoginController::logout');
-$routes->get('/register','LoginController::register');
-$routes->add('/pregister','LoginController::registeruser');
+$routes->add('/plogin','LoginController::loginadmin');
+$routes->get('/logout','LoginMasyarakat::logout');
+$routes->get('/logout-admin','LoginController::logout');
+$routes->get('/register','LoginMasyarakat::register');
+$routes->post('/register','LoginMasyarakat::registeruser');
 
 /*
  * --------------------------------------------------------------------

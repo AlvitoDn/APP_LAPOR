@@ -2,15 +2,13 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use App\Models\LaporanModel;
-use App\Models\TanggapanModel;
+use App\Models\PengaduanModel;
 class PengaduanController extends BaseController{
-    protected $laporans, $tanggapans;
+    protected $laporans;
 
     function __construct()
     {
-        $this->laporans = new LaporanModel();
-        $this->tanggapans = new TanggapanModel();
+        $this->laporans = new PengaduanModel();
     }
 
     public function index(){
@@ -18,21 +16,40 @@ class PengaduanController extends BaseController{
         return view("TampilanPetugas/laporanview",$data);
     }
 
-    public function pengaduan(){
+    public function savepengaduan(){
+        // if (!$this->validate([
+        //     'foto'=>[
+        //         "rules"=>"uploaded[foto]|mime_in[foto, image/jpeg, image/jpg]|max_size[foto,2048]",
+        //         "errors"=>[
+        //             'uploaded'=>'Harus ada file yang diupload',
+        //             'mime_in'=>'file extension harus berbentuk jpg / jpeg',
+        //             'max_size'=>'ukuran maksimal 2 MB'
+        //         ]
+        //     ]
+        // ])) {
+        //     return redirect()->back()->withInput();
+        // }
+        $datafile = $this->request->getFile('foto');
+        $filename = $datafile->getRandomName();
+
         $this->laporans->insert([
-            'tgl_pengaduan'=>date('Y-m-d'),
+            'tgl_pengaduan'=>date("Y-m-d H:i:s"),
             'nik'=>$this->request->getPost('nik'),
             'nama'=>$this->request->getPost('nama'),
             'isi_laporan'=>$this->request->getPost('isi_laporan'),
-            'foto'=>$this->request->getPost('foto'),
-            'status'=> 0
+            'foto'=> $filename,
+            'status'=> '0',
         ]);
-        session()->setFlashdata('message', 'Laporan Berhasil di Kirim! Silahkan Tunggu Tanggapan Dari Kami');
-        return redirect('dashboarduser');
+        $datafile->move('/uploads/berkas/',$filename);
+        return redirect("laporan");
+
     }
 
-    public function tanggapan($id){
-
+    public function delete($id)
+    {
+        $this->laporans->delete($id);
+        session()->setFlashdata('message','Data laporan Berhasil Dihapus');
+        return redirect('laporan');
     }
 
 }

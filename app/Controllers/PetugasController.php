@@ -5,7 +5,6 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\PetugasModel;
 use App\Models\MasyarakatModel;
-
 class PetugasController extends BaseController
 {
     protected $petugass,$masyarakats;
@@ -21,7 +20,12 @@ class PetugasController extends BaseController
         $data['petugas'] = $this->petugass->findAll();
         return view('/TampilanPetugas/petugas_view', $data);
     }
-
+    
+    public function M()
+    {
+        $data['masyarakat'] = $this->masyarakats->findAll();
+        return view('/TampilanPetugas/masyarakat_view', $data);
+    }
     public function save()
     {
         $this->petugass->insert([

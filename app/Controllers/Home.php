@@ -6,10 +6,10 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('TampilanPetugas/dashboard');
-    }
-    public function user()
-    {
         return view('TampilanMasyarakat/dashboardM');
+    }
+    public function admin()
+    {
+        return view('TampilanPetugas/dashboard');
     }
 }

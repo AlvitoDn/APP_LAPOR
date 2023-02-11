@@ -1,14 +1,18 @@
-<?php 
+<?php
+
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\PetugasModel;
 use App\Models\MasyarakatModel;
 
-class LoginController extends BaseController{
-    protected $petugass,$masyarakats;
+class LoginController extends BaseController
+{
+    protected $petugass, $masyarakats;
 
-    function __construct(){
+    function __construct()
+    {
+        $this->petugass = new PetugasModel();
         $this->masyarakats = new MasyarakatModel();
     }
 
@@ -17,52 +21,66 @@ class LoginController extends BaseController{
         return view('loginview');
     }
 
-    public function login()
+    public function admin()
     {
-        $petugass = new PetugasModel();
+        return view('loginadmin');
+    }
+
+    public function loginadmin()
+    {
         $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
-        $dataPetugass = $petugass->where(['username' => $username])->first();
-        d($dataPetugass);
-        if($dataPetugass) {
-            if(password_verify($password, $dataPetugass['password'])) {
+        $password = $this->request->getPost('password')."";
+
+        $dataPetugass = $this->petugass->where([
+            'username' => $username,
+        ])->first();
+        if ($dataPetugass) {
+            if (password_verify($password, $dataPetugass['password'])) {
                 session()->set(
                     [
                         'username' => $dataPetugass['username'],
                         'nama_petugas' => $dataPetugass['nama_petugas'],
-                        'level'=>$dataPetugass['level'],
-                        'id_petugas'=>$dataPetugass['id_petugas'],
-                        'logged_in' => true 
-                        ]
+                        'level' => $dataPetugass['level'],
+                        'logged_in' => true,
+                        'id_petugas' => $dataPetugass['id_petugas']
+                    ]
                 );
-                return $this->response->redirect('/');
+                return $this->response->redirect('/dashboarduser');
             } else {
-                session()->setFlashdata('gagal','Username atau Password salah');
+                session()->setFlashdata('gagal', 'Username atau Password salah');
                 return $this->response->redirect('/login');
             }
         } else {
-            session()->setFlashdata('gagal','Username tidak ditemukan');
-            return $this->response->redirect('/login');
+            $dataMasyarakats = $this->masyarakats->where([
+                'username' => $username,
+            ])->first();
+            if ($dataMasyarakats) {
+                if (password_verify($password, $dataMasyarakats['password'])) {
+                    session()->set(
+                        [
+                            'username' => $dataMasyarakats['username'],
+                            'nik' => $dataMasyarakats['nik'],
+                            'nama' => $dataMasyarakats['nama'],
+                            'username' => $dataMasyarakats['username'],
+                            'telp' => $dataMasyarakats['telp'],
+                            'logged_in' => true,
+                            'id_masyarakat' => $dataPetugass['id_masyarakat']
+                        ]
+                    );
+                    return $this->response->redirect('/');
+                } else {
+                    session()->setFlashdata('gagal', 'Username atau Password salah');
+                    return $this->response->redirect('/login');
+                }
+            } else {
+                session()->setFlashdata('gagal', 'Username tidak ditemukan');
+                return $this->response->redirect('/login-admin');
+            }
         }
-    }
-    function logout(){
-        session()->destroy();
-        return $this->response->redirect('/login');
-    }
-
-    //Register
-    public function register(){
-        return view('registerview');
-    }
-
-    public function registeruser(){
-        $this->masyarakats->insert([
-            'nik'=>$this->request->getPost('nik'),
-            'nama'=>$this->request->getPost('nama'),
-            'username'=>$this->request->getPost('username'),
-            'password'=>password_hash($this->request->getPost('password'),PASSWORD_DEFAULT),
-            'telp'=>$this->request->getPost('telp')
-        ]);
-        return redirect('login');
+        function logout()
+        {
+            session()->destroy();
+            return $this->response->redirect('/login-admin');
+        }
     }
 }

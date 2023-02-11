@@ -9,78 +9,102 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>User - Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<?= base_url() ?>/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <style>
     body {
-        height: 100%;
-        background-image: url('mountain.jpg');
+        background-color: black;
+        background: url('<?= base_url() ?>/images/lungmen.jpg');
         background-size: cover;
+        filter: blur(80%);
+    }
+
+    #container {
+        border: solid black 2px;
+        background: rgba(56, 255, 255, 0.1);
+    }
+
+    #button{
+        width: 30px;
+        height: 30px;
+    }
+
+    #button+i:before {
+        content: "\f06e";
+    }
+
+    #button:checked+i:before {
+        content: "\f070";
     }
 </style>
 
 <body>
+    <section class="vh-100">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;" id="container">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center text-light mb-5">Create an account</h2>
 
-    <div class="container">
+                                <form id="box" action="register" method="post">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
-                            <form class="" action="pregister" method="POST">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Your Full Name....">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Your NIK....">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="username.... ">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="telp" name="telp" placeholder="Your Phone Number.... ">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="/login">Already have an account? Login!</a>
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="nama" class="form-control form-control-lg" placeholder="Full Name..." autocomplete="off" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="nik" class="form-control form-control-lg" placeholder="NIK..." autocomplete="off" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="username" class="form-control form-control-lg" placeholder="Username..." autocomplete="off" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="telp" class="form-control form-control-lg" placeholder="Phone Number..." autocomplete="off" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="password" class="form-control form-control-lg" placeholder="Password..." autocomplete="off" />
+                                        <input id="button" class="form-check-input mt-2" type="checkbox" onclick="myFunction()">
+                                        <i for="button" class="fas fa-2x mt-2"></i>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-dark btn-block btn-lg text-light">Register</button>
+                                    </div>
+
+                                    <p class="text-center text-light mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-light"><u>Login here</u></a></p>
+
+                                </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url() ?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?= base_url() ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= base_url() ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= base_url() ?>/js/sb-admin-2.min.js"></script>
-
+    </section>
 </body>
+<script src="<?= base_url() ?>/js/bootstrap.min.js"></script>
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 
 </html>

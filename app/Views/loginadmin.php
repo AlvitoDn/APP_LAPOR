@@ -18,7 +18,6 @@
     <link href="<?= base_url() ?>/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-
 <style>
     .col {
         margin: auto;
@@ -46,15 +45,15 @@
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-                        <form style="width: 32rem;" action="plogin" method="post">
-
-                            <h3 class="fw-bold mb-3 pb-3" style="letter-spacing: 2px;"> Please Log in ! !</h3>
+                        <form style="width: 32rem;" action="plogin" method="POST">
 
                             <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                                <div class="alert alert-success">
+                                <div class="alert alert-outline-light text-light">
                                     <?php echo session()->getFlashdata('error'); ?>
                                 </div>
                             <?php endif ?>
+
+                            <h3 class="fw-bold mb-3 pb-3" style="letter-spacing: 2px;"> Please Log in ! !</h3>
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="Username..." autocomplete="off" />
@@ -67,7 +66,7 @@
                             </div>
 
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-outline-light btn-lg" type="submit">Login</button>
+                                <button class="btn btn-outline-light btn-lg btn-block" type="submit">Login</button>
                             </div>
 
                             <p>Don't have an account? <a href="/register" class="link-info">Register here</a></p>
@@ -78,7 +77,7 @@
 
                 </div>
                 <div class="col-sm-7 px-0 d-none d-sm-block">
-                    <img src="<?= base_url() ?>/images/Login.jpg" alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                    <img src="<?= base_url() ?>/images/login.jpg" alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
                 </div>
             </div>
         </div>
